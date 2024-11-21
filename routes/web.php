@@ -2,19 +2,22 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ControladorVistas;
+use App\Http\Controllers\clienteController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*
+Route::view('/', 'inicio')->name('rutainicio');
+Route::view('/form', 'formulario')->name('rutacacas');
+Route::view('/consulta', 'clientes')->name('rutaconsulta');
+*/
+/* Rutas para trbajar con el controlador vistas*/
+Route::get('/',[controladorVistas::class, 'home'])->name('rutainicio');
+Route::get('/consulta',[controladorVistas::class, 'select'])->name('rutaconsulta');
+Route::view('/component', 'componentes')->name('rutacomponent');
+/* Rutas para trbajar con el controlador clienteController*/
+Route::get('/cliente/create',[clienteController::class, 'create'])->name('rutacacas');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::post('/cliente', [clienteController::class, 'store'])->name('rutaenviar');
+Route::get('/cliente',[clienteController::class,'index'])->name('consulta');
 
 require __DIR__.'/auth.php';
