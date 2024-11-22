@@ -19,6 +19,33 @@ class clienteController extends Controller
         return view('clientes', compact('consultarClientes'));
     }
 
+    public function editar($id)
+    {
+        $cliente = DB::table('cliente')->where('id', $id)->first();
+        return view('editar', compact('cliente'));
+    }    
+
+    public function actualizar(validadorCliente $request, $id)
+    {
+        DB::table('cliente')->where('id', $id)->update([
+            'nombre' => $request->input('txtnombre'),
+            'apellido' => $request->input('txtapellido'),
+            'correo' => $request->input('txtcorreo'),
+            'telefono' => $request->input('txttelefono'),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('rutaconsulta')->with('exito', 'El cliente ha sido actualizado correctamente.');
+    }
+
+    public function eliminar($id)
+    {
+        DB::table('cliente')->where('id', $id)->delete();
+
+        return redirect()->route('rutaconsulta')->with('exito', 'El cliente ha sido eliminado correctamente.');
+    }
+
+
     /**
      * Sirve para abrir el formulario
      */
