@@ -23,7 +23,7 @@
         <p>Presiona el botón para iniciar....</p>
 
         <a href="/form" class="btn btn-danger">Ir al Registro</a>
-        <a href="{{ route('rutacacas') }}" class="btn btn-primary">Ir al Registro</a>
+        <a href="{{ route('cliente.create') }}" class="btn btn-primary">Ir al Registro</a>
 
     </div>
 
