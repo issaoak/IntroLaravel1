@@ -3,6 +3,11 @@
 
 {{-- Esto lo ponemos en barras de navegación y ponemos, agregamos el section y borramos la parte de abajo --}}
 @section('contenido')
+
+
+
+
+
 @if(session('exito'))
     <div class="alert alert-success">
         {{ session('exito') }}
@@ -22,7 +27,7 @@
 
 
 <div class="container mt-5 col-md-6">
-@foreach($consultarClientes as $cliente)
+@foreach ($consulta as $cliente)
 
   <div class="card text-justify font-monospace">
     <div class="card-header fs-5 text-primary">
@@ -35,14 +40,24 @@
     </div>
 
     <div class="card-footer text-muted">
-            <a href="{{ route('cliente.editar', $cliente->id) }}" class="btn btn-warning btn-sm">Actualizar</a>
-
-            <form action="{{ route('cliente.eliminar', $cliente->id) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este cliente?');">
-                @csrf
-                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-            </form>
-        </div>
+    <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-list-stars"></i> Opciones
+            </button>
+            <ul class="dropdown-menu">
+                <button type="button" class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#update{{$cliente->id}}">
+                    <i class="bi bi-pencil-square"></i>Editar 
+                  </button>
+                <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#destroy{{$cliente->id}}">
+                    <i class="bi bi-trash"></i> Borrar 
+                  </button>
+            </ul>
+          </div> 
+           
+        
   </div>
+  
+@include('options')
 @endforeach
 </div>
 

@@ -29,7 +29,7 @@
    {{__('Registro Clientes')}}
  </div>
  <div class="card-body text-justify">
-  <form action="{{ route('rutaenviar')}}" method="POST" >
+  <form action="{{ route('cliente.store')}}" method="POST" >
     @csrf
     <div class="mb-3">
       <label for="Nombre" class="form-label">{{__('Nombre:')}}</label>
